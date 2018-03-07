@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-// GET /login
+// GET /auto
 router.get('/', function(req, res, next) {
-  res.render('login');
+  res.send('AUTOMATION PAGE PAGE');
 });
 
 module.exports = router;
