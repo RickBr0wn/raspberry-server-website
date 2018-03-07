@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('sessions');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -17,6 +18,13 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// use sessions for tracking login
+app.use(session({
+  session: 'Rick Brown 2018',
+  resave: true,
+  saveUninitialized: false
+}));
 
 // mongoDB connection
 mongoose.connect('mongodb://localhost:27017/homedb');
