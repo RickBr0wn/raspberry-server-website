@@ -33,6 +33,11 @@ i.icn-person.material-icons {
 	color: initial;
 }
 
+/* Login styles */
+.blank-space{
+	padding-top: 20vh;
+}
+
 /* Error styles */
 .p-t-2{
     padding-top: 10vh;

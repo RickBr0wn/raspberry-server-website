@@ -4,15 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var login = require('./routes/login');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// mongoDB connection
+mongoose.connect('mongodb://localhost:27017/homedb');
+var db = mongoose.connection;
+// mongo error
+db.on('error', console.error.bind(console, 'DATABASE CONNECTION ERROR: '));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -23,11 +30,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error(' 404 : Not Found');
+  var err = new Error('404 : Not Found');
   err.status = 404;
   next(err);
 });
