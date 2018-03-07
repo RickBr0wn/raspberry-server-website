@@ -3,7 +3,12 @@ var router = express.Router();
 
 // GET /login
 router.get('/', function(req, res, next) {
-  res.render('login');
+  res.render('login', { title: 'Log In' });
+});
+
+//POST /login
+router.post('/login', function(req, res, next){
+  return res.send('LOGGED IN');
 });
 
 module.exports = router;

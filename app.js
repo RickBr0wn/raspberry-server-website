@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var session = require('sessions');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -21,7 +21,7 @@ app.set('view engine', 'pug');
 
 // use sessions for tracking login
 app.use(session({
-  session: 'Rick Brown 2018',
+  secret: 'Rick Brown 2018',
   resave: true,
   saveUninitialized: false
 }));
