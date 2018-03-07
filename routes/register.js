@@ -22,10 +22,9 @@ router.post('/', function(req, res, next){
 
       //create object with form input
       var userData = {
-        name: req.body.email,
+        name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
-        confirmPassword: req.body.confirmPassword
+        password: req.body.password
       };
 
       // use schema's create method to insert document into mongo
