@@ -21,7 +21,7 @@ app.set('view engine', 'pug');
 
 // use sessions for tracking login
 app.use(session({
-  secret: 'Rick Brown 2018',
+  secret: 'rickbrown loves you',
   resave: true,
   saveUninitialized: false
 }));

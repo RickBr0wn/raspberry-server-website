@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/user');
 
 // GET /login
 router.get('/', function(req, res, next) {
@@ -10,8 +11,8 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next){
   if(req.body.email && req.body.password){
     User.authenticate(req.body.email, req.body.password, function(error, user){
-      if(error || user){
-        var err = new Error('Wrong email or password');
+      if(error || !user){
+        var err = new Error('Incorrect email or password.');
         err.status = 401;
         return next(err);
       }else{
