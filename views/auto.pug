@@ -4,3 +4,11 @@ block content
     include includes/jumbotron.pug
     .main.container.clearfix
         .row
+            h1.display-4
+                | #{data}
+                script.
+                    let socket = io();
+                    // When data is 'recieved' do something
+                    socket.on('data', function(val){
+                    console.log(val);
+                    });

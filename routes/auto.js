@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
         if (error) {
           return next(error);
         } else {
-          return res.render('auto', { title: 'Home Automation Project', name: user.name, email: user.email });
+          return res.render('auto', { title: 'Home Automation Project', name: user.name, data: 'Configuring Temperature Sensor DS18b20' });
         }
       });
 });
