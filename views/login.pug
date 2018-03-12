@@ -4,7 +4,7 @@ block content
 	.container.blank-space
 	.container
 		.col-md-6.offset-md-3
-			h1.display-4.m-b-2 Please sign in
+			h1.display-4.m-b-2 Please Sign in
 			form(method='POST' action='/login')
 				div.form-group
 					label(for='email') Email
@@ -12,9 +12,5 @@ block content
 				div.form-group
 					label(for='password') Password
 					input.form-control(type='password' id='password' placeholder='password' name='password')
-				.checkbox
-					label
-						input(type="checkbox" value="remember-me")
-						|  Remember me
-				button.btn.btn-lg.btn-primary.btn-block(type="submit") Sign in
+				button.btn.btn-primary(type='submit') Log in 
 	.container.blank-space
