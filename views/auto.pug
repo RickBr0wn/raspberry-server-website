@@ -2,14 +2,9 @@ extends layout
 
 block content
     include includes/jumbotron.pug
-    include includes/ard.pug
     .main.container.clearfix
         .row
             h1.display-4
                 | #{data}
-                //- script.
-                //-     let socket = io();
-                //-     // When data is 'recieved' do something
-                //-     socket.on('data', function(val){
-                //-     console.log(val);
-                //-     });
+                #bigfella(style="width:400px; height:320px")
+                script(rel="text/javascript" src="/javascripts/sensor.js")

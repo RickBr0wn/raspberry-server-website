@@ -17,7 +17,14 @@ var profile = require('./routes/profile');
 var register = require('./routes/register');
 var auto = require('./routes/auto');
 
+// Create board instance
+var board = new five.Board();
+
+// Create app instance
 var app = express();
+
+// Set the port number
+let port = 3000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,6 +58,63 @@ app.use('/login', login);
 app.use('/profile', profile);
 app.use('/register', register);
 app.use('/auto', auto);
+
+// board.on
+board.on("ready", function() {
+  // Connection message in the console
+  console.log('ARDUINO BOARD READY STATE: TRUE');
+
+  // The DS18b20 requires OneWire support using the ConfigurableFirmata
+  // Create a thermometer instance
+  let thermometer = new five.Thermometer({
+    controller: "DS18B20",
+    pin: 2
+  });
+
+  // On.change
+  thermometer.on("change", function() {
+    //Prints data to 'server' console
+    console.log(this.celsius + "°C");
+    lcd.clear().cursor(0, 0).print(this.celsius + " C");
+
+  // Send data via sockets.io
+  io.emit('data', this.celsius);
+  }); // End of thermometer
+
+  // Create a LCD instance
+  let lcd = new five.LCD({
+    // LCD pin name         RS  EN  DB4 DB5 DB6 DB7
+    // Arduino pin numbers  7   8   9   10  11  12
+    pins: [7, 8, 9, 10, 11, 12],
+    backlight: 6,
+    rows: 2,
+    cols: 20
+  });
+
+  lcd.clear().cursor(0, 0).print("PREPARING SENSOR");
+
+  this.repl.inject({
+    lcd: lcd
+  });
+});
+
+// Begin 'listening' on the pre defined port number (3000)
+const server = http.createServer(app).listen(port, function(req, res){
+  console.log('LISTENING ON PORT ' + port);
+});
+
+// Set up socket.io to 'listen'
+io = io.listen(server);
+
+// Display a conection message
+io.on('connection', function(socket){
+  console.log('SOCKET.IO CONNECTED');
+
+  // Display a disconnection message
+  socket.on('disconnect', function(){
+    console.log('SOCKET.IO DISCONNECTED');
+  })
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
