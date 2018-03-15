@@ -17,6 +17,8 @@ var profile = require('./routes/profile');
 var register = require('./routes/register');
 var auto = require('./routes/auto');
 
+var Temp = require('./models/temperature');
+
 // Create board instance
 var board = new five.Board();
 
@@ -38,7 +40,7 @@ app.use(session({
 }));
 
 // mongoDB connection
-mongoose.connect('mongodb://localhost:27017/homedb')
+mongoose.connect('mongodb://localhost:27017/homedb');
 var db = mongoose.connection;
 // mongo error
 db.on('error', console.error.bind(console, 'DATABASE CONNECTION ERROR: '));
@@ -68,14 +70,30 @@ board.on("ready", function() {
   // Create a thermometer instance
   let thermometer = new five.Thermometer({
     controller: "DS18B20",
-    pin: 2
+    pin: 2,
+    freq: 60000
   });
 
   // On.change
-  thermometer.on("change", function() {
+  thermometer.on("data", function() {
     //Prints data to 'server' console
     console.log(this.celsius + "°C");
     lcd.clear().cursor(0, 0).print(this.celsius + " C");
+
+    // create temp object
+    let tempData = new Temp({
+      temp: this.celsius,
+      date: Date.now()
+    });
+
+    // save data to mongoDB
+    tempData.save(function(error){
+      console.log('Data saved!');
+      console.log(tempData.date);
+      if(error){
+        console.log(error);
+      }
+    });
 
   // Send data via sockets.io
   io.emit('data', this.celsius);
