@@ -26,7 +26,7 @@ var board = new five.Board();
 var app = express();
 
 // Set the port number
-let port = 3000;
+let port = 8000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
