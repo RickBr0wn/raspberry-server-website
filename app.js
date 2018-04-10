@@ -26,7 +26,7 @@ var board = new five.Board();
 var app = express();
 
 // Set the port number
-let port = 3000;
+let port = 8000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -71,7 +71,7 @@ board.on("ready", function() {
   let thermometer = new five.Thermometer({
     controller: "DS18B20",
     pin: 2,
-    freq: 60000
+    freq: 1000
   });
 
   // On.change

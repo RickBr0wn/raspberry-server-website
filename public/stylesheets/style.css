@@ -44,6 +44,15 @@ i.icn-person.material-icons {
     padding-bottom: 60vh;
 }
 
+/* Auto Styles */
+.temp-title{
+	text-align: center;
+}
+
+.temp-container{
+	margin-left: 11%;
+}
+
 /* Media Queries */
 
 /* @media (min-width: 0) and (max-width: 47em) {

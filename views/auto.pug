@@ -3,8 +3,9 @@ extends layout
 block content
     include includes/jumbotron.pug
     .main.container.clearfix
-        .row
-            h1.display-4
+        .col-md-6.offset-md-3
+            h1.display-4.temp-title
                 | #{data}
-                #bigfella(style="width:400px; height:320px")
-                script(rel="text/javascript" src="/javascripts/sensor.js")
+                div.temp-container
+                    #bigfella(style="width:400px; height:320px")
+                    script(rel="text/javascript" src="/javascripts/sensor.js")
