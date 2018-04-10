@@ -71,7 +71,7 @@ board.on("ready", function() {
   let thermometer = new five.Thermometer({
     controller: "DS18B20",
     pin: 2,
-    freq: 60000
+    freq: 1000
   });
 
   // On.change
